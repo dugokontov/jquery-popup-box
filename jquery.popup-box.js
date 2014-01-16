@@ -3,29 +3,37 @@
  * 
  * Requires jQuery and jQuery UI 
  */
-
 (function ($) {
   $.extend({
     prompt: function(msg, defaultValue, options) {
-      var dfd = new jQuery.Deferred();
-      var promtDiv = $('<div />', {title: msg});
-      var _ok = function() {
-        dfd.resolve(promtDiv.find('input').val());
-        promtDiv.remove();
-      }
-      var _close = function() {
-        dfd.reject();
-        promtDiv.remove();
-      }
-      var settings = $.extend({
-        close: _close,
-        buttons: {
-          "OK": _ok,
-          "Cancel": _close
-        }
-      }, $.popupDialog, options);
-      promtDiv
-        .append($('<input />', {type: "text", val: defaultValue || "", keypress: function(e) {if (e.which == 13) _ok()}}).focus())
+      var dfd = new $.Deferred(),
+        $promtDiv = $('<div />', { title: msg }),
+        _ok = function() {
+          dfd.resolve($promtDiv.find('input').val());
+          $promtDiv.remove();
+        },
+        _close = function() {
+          dfd.reject();
+          $promtDiv.remove();
+        },
+        settings = $.extend({
+          close: _close,
+          buttons: {
+            "OK": _ok,
+            "Cancel": _close
+          }
+        }, $.popupDialog, options),
+        $input = $('<input />', {
+          type: "text",
+          val: defaultValue || "",
+          keypress: function(e) {
+            if (e.which === 13) {
+              _ok();
+            }
+          }
+        }).focus();
+      $promtDiv
+        .append($input)
         .appendTo('body')
         .dialog(settings)
         .find('input')
@@ -34,43 +42,43 @@
       return dfd.promise();
     },
     confirm: function(msg, titleMsg, options) {
-      var dfd = new jQuery.Deferred();
-      var confirmDiv = $('<div />', {title: titleMsg || ""});
-      var _resolveFunction = function(respoveMethod) {
-        return function() {
-          dfd[respoveMethod]();
-          confirmDiv.remove();
-        }
-      };
-      var settings = $.extend({
-        close: _resolveFunction("reject"),
-        buttons: {
-          "OK": _resolveFunction("resolve"),
-          "Cancel":  _resolveFunction("reject")
-        }
-      }, $.popupDialog, options);
-      confirmDiv
+      var dfd = new $.Deferred(),
+        $confirmDiv = $('<div />', {title: titleMsg || ""}),
+        resolveFunction = function(respoveMethod) {
+          return function() {
+            dfd[respoveMethod]();
+            $confirmDiv.remove();
+          };
+        },
+        settings = $.extend({
+          close: resolveFunction("reject"),
+          buttons: {
+            "OK": resolveFunction("resolve"),
+            "Cancel":  resolveFunction("reject")
+          }
+        }, $.popupDialog, options);
+      $confirmDiv
         .append(msg)
         .appendTo('body')
         .dialog(settings);
       return dfd.promise();
     },
     alert: function(msg, titleMsg, options) {
-      var dfd = new jQuery.Deferred();
-      var alertDiv = $('<div />', {title: titleMsg || ""});
-      var _resolveFunction = function(msg) {
-        return function() {
-          dfd.resolve(msg);
-          alertDiv.remove();
-        }
-      };
-      var settings = $.extend({
-        close: _resolveFunction("Close"),
-        buttons: {
-          "OK": _resolveFunction("OK")
-        }
-      }, $.popupDialog, options);
-      alertDiv
+      var dfd = new $.Deferred(),
+        $alertDiv = $('<div />', { title: titleMsg || "" }),
+        resolveFunction = function(msg) {
+          return function() {
+            dfd.resolve(msg);
+            $alertDiv.remove();
+          };
+        },
+        settings = $.extend({
+          close: resolveFunction("Close"),
+          buttons: {
+            "OK": resolveFunction("OK")
+          }
+        }, $.popupDialog, options);
+      $alertDiv
         .append(msg)
         .appendTo('body')
         .dialog(settings);
@@ -81,5 +89,5 @@
       width: 350,
       height: 200
     }
-  })
-})(jQuery)
+  });
+}(jQuery));
