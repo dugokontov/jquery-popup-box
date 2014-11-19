@@ -1,1 +1,7 @@
-{"name":"Jquery-popup-box","tagline":"jQuery plugin to replace popup boxes (alert, confirm and prompt) based on deferred objects","body":"### Intro\r\nJquery-popup-box is a simple jQuery plugin that can be used to replace build in popups. This plugin was written because:\r\n - it will not interrupt and stop script execution when popups are used\r\n - it provides an elegant way for follow up code depending on user choices\r\n - popups are easy way to explain and understand jQuery Deffered objects\r\n\r\n### jQuery Deferred\r\njQuery introduced [Deffered](http://api.jquery.com/category/deferred-object/) objects in 1.5. They are easy way to stash functions that will be executed after something else eventually happen.","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
+{
+    "name": "Jquery-popup-box",
+    "tagline": "jQuery plugin to replace popup boxes (alert, confirm and prompt) based on deferred objects",
+    "body": "### Intro\r\nJquery-popup-box is a simple jQuery plugin that can be used to replace build in popups. This plugin was written because:\r\n - it will not interrupt and stop script execution when popups are used\r\n - it provides an elegant way for follow up code depending on user choices\r\n - popups are easy way to explain and understand jQuery Deferred objects\r\n\r\n### jQuery Deferred\r\njQuery introduced [Deferred](http://api.jquery.com/category/deferred-object/) objects in 1.5. They are easy way to stash functions that will be executed after something else eventually happen.",
+    "google": "",
+    "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
